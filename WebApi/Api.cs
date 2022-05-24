@@ -40,12 +40,17 @@
             }
         }
 
-        private static async Task<IResult> InsertUser(UserModel user, IUserData data)
+        private static async Task<IResult> InsertUser(UserModel user, IUserData data, IMinimalValidator minimalValidator)
         {
             try
             {
-                await data.InsertUser(user);
-                return Results.Ok();
+                var validationResult = minimalValidator.Validate(user);
+                if (validationResult.IsValid)
+                {
+                    await data.InsertUser(user);
+                    return Results.Ok();
+                }
+                return Results.ValidationProblem(validationResult.Errors);
             }
             catch (Exception ex)
             {
@@ -53,12 +58,18 @@
 
             }
         }
-        private static async Task<IResult> UpdateUser(UserModel user, IUserData data)
+        private static async Task<IResult> UpdateUser(UserModel user, IUserData data, IMinimalValidator minimalValidator)
         {
             try
             {
-                await data.UpdateUser(user);
-                return Results.Ok();
+                var validationResult = minimalValidator.Validate(user);
+                if (validationResult.IsValid)
+                {
+                    await data.UpdateUser(user);
+                    return Results.Ok();
+                }
+                return Results.ValidationProblem(validationResult.Errors);
+
             }
             catch (Exception ex)
             {
