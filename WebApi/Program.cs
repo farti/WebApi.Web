@@ -23,4 +23,6 @@ app.UseHttpsRedirection();
 
 app.ConfigureApi();
 
+app.UseExceptionHandlerMiddleware();
+
 app.Run();

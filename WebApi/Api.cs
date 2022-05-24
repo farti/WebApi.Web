@@ -9,6 +9,12 @@
             app.MapPost("/Users", InsertUser);
             app.MapPut("/Users", UpdateUser);
             app.MapDelete("/Users", DeleteUser);
+            app.MapGet("/error", GetError);
+        }
+
+        private static async Task GetError()
+        {
+            throw new ArgumentNullException("CustomError");
         }
 
         private static async Task<IResult> GetUsers(IUserData data)
