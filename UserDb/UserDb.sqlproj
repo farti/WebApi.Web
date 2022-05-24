@@ -68,7 +68,9 @@
     <Build Include="Tables\User.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Script.PostDeployment.sql" />
     <None Include="UserDb.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>
